@@ -2,6 +2,8 @@ package za.co.valr.valrtest.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import za.co.valr.valrtest.exceptions.BadRequest;
+import za.co.valr.valrtest.exceptions.NotFound;
 import za.co.valr.valrtest.mapper.OrderBookMapper;
 import za.co.valr.valrtest.mapper.TradeMapper;
 import za.co.valr.valrtest.model.OrderBookEntity;
@@ -14,7 +16,7 @@ import za.co.valr.valrtest.repository.TradeRepository;
 import java.util.List;
 
 
-@Service("valrService")
+@Service("marketDataService")
 public class MarketDataServiceImpl implements MarketDataService {
     private OrderBookRepository orderBookRepository;
     private OrderBookMapper orderBookMapper;
@@ -22,8 +24,14 @@ public class MarketDataServiceImpl implements MarketDataService {
     private TradeMapper tradeMapper;
 
     @Override
-    public OrderBook getOrderBook(String currencyPair) {
+    public OrderBook getOrderBook(String currencyPair) throws NotFound, BadRequest {
+        if(currencyPair==null || currencyPair.isEmpty()) {
+            throw new BadRequest("Currency Pair should not be null or empty");
+        }
         OrderBookEntity orderBookEntity = orderBookRepository.findByCurrencyPair(currencyPair);
+        if(orderBookEntity==null) {
+            throw new NotFound("Order book not found");
+        }
         return orderBookMapper.orderBookEntityToOrderBook(orderBookEntity);
     }
 

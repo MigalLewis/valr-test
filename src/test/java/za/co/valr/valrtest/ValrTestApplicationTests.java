@@ -49,7 +49,7 @@ class ValrTestApplicationTests {
 	void contextLoads() {
 		assertTrue(context.containsBean("swaggerApi"));
 		assertTrue(context.containsBean("orderBookRepository"));
-		assertTrue(context.containsBean("valrService"));
+		assertTrue(context.containsBean("marketDataService"));
 		assertTrue(context.containsBean("orderBookMapper"));
 		assertTrue(context.containsBean("tradeRepository"));
 		assertTrue(context.containsBean("limitOrderRepository"));
@@ -78,6 +78,16 @@ class ValrTestApplicationTests {
 		this.mockMvc.perform(get("/BTCZAR/orderbook")).
 				andExpect(status().isOk()).
 				andExpect(content().string(objectMapper.writeValueAsString(expResult)));
+	}
+	@Test
+	public void getOrderBook_notFound() throws Exception {
+		OrderBookEntity orderBookEntity = objectMapper.readValue(getFile("Orderbook.json"), OrderBookEntity.class);
+
+		orderBookRepository.save(orderBookEntity);
+
+
+		this.mockMvc.perform(get("/ETHZAR/orderbook")).
+				andExpect(status().isNotFound());
 	}
 
 	@Test

@@ -4,9 +4,13 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.Extensions;
 import org.mapstruct.factory.Mappers;
 import org.mockito.Mockito;
+import za.co.valr.valrtest.exceptions.BadRequest;
+import za.co.valr.valrtest.exceptions.NotFound;
 import za.co.valr.valrtest.mapper.OrderBookMapper;
 import za.co.valr.valrtest.mapper.TradeMapper;
 import za.co.valr.valrtest.model.*;
@@ -38,9 +42,12 @@ class MarketDataServiceImplTest {
         this.orderBookService.setOrderBookMapper(Mappers.getMapper(OrderBookMapper.class));
         this.orderBookService.setTradeMapper(Mappers.getMapper(TradeMapper.class));
     }
-
+    @DisplayName("Given that an order book for BTCZAR is in the repository" +
+            "And I have BTCZAR as an input" +
+            "When I call getOrderBook" +
+            "Then the Order book for BTCZAR should be returned")
     @Test
-    void getOrderBook() throws IOException {
+    void getOrderBook() throws IOException, NotFound, BadRequest {
         OrderBookEntity orderBookEntity = objectMapper.readValue(getFile("Orderbook.json"), OrderBookEntity.class);
         Mockito.when(orderBookRepository.findByCurrencyPair("BTCZAR"))
                 .thenReturn(orderBookEntity);
@@ -54,7 +61,52 @@ class MarketDataServiceImplTest {
         expResult.setLastChange("2020-08-07T06:54:18.261Z");
         assertEquals(expResult, result);
     }
+    @DisplayName("Given that an order book for BTCZAR is in the repository" +
+            "And I have ETHZAR as an input" +
+            "When I call getOrderBook" +
+            "Then a Not Found Exception should be thrown")
+    @Test
+    void getOrderBook_notFound() throws IOException, NotFound, BadRequest {
+        OrderBookEntity orderBookEntity = objectMapper.readValue(getFile("Orderbook.json"), OrderBookEntity.class);
+        Mockito.when(orderBookRepository.findByCurrencyPair("BTCZAR"))
+                .thenReturn(orderBookEntity);
 
+        assertThrows(NotFound.class, () -> {
+            orderBookService.getOrderBook("ETHZAR");
+        });
+    }
+    @DisplayName("Given that an order book for BTCZAR is in the repository" +
+            "And I have empty input" +
+            "When I call getOrderBook" +
+            "Then a Bad Request Exception should be thrown")
+    @Test
+    void getOrderBook_empty() throws IOException, NotFound, BadRequest {
+        OrderBookEntity orderBookEntity = objectMapper.readValue(getFile("Orderbook.json"), OrderBookEntity.class);
+        Mockito.when(orderBookRepository.findByCurrencyPair("BTCZAR"))
+                .thenReturn(orderBookEntity);
+
+        assertThrows(BadRequest.class, () -> {
+            orderBookService.getOrderBook("");
+        });
+    }
+    @DisplayName("Given that an order book for BTCZAR is in the repository" +
+                 "And I have null input" +
+                 "When I call getOrderBook" +
+                 "Then a Bad Request Exception should be thrown")
+    @Test
+    void getOrderBook_null() throws IOException, NotFound, BadRequest {
+        OrderBookEntity orderBookEntity = objectMapper.readValue(getFile("Orderbook.json"), OrderBookEntity.class);
+        Mockito.when(orderBookRepository.findByCurrencyPair("BTCZAR"))
+                .thenReturn(orderBookEntity);
+
+        assertThrows(BadRequest.class, () -> {
+            orderBookService.getOrderBook(null);
+        });
+    }
+    @DisplayName("Given that an trade history for BTCZAR is in the repository" +
+            "And I have BTCZAR as an input" +
+            "When I call getAllTrades" +
+            "Then the Trade History for BTCZAR should be returned")
     @Test
     void getAllTrades() throws IOException {
         TypeReference<List<TradeEntity>> typeRef
