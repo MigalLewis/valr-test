@@ -14,7 +14,8 @@ public interface TradeMapper {
 
     @Mappings({
             @Mapping(target="tradedAt", source="entity.tradedAt", dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'"),
-            @Mapping(target="id",expression = "java(entity.getId().toString())")
+            @Mapping(target="id",expression = "java(entity.getId().toString())"),
+            @Mapping(target="price",expression = "java(String.format(\"%.0f\", entity.getPrice()))")
     })
     Trade tradeEntityToTrade(TradeEntity entity);
 }

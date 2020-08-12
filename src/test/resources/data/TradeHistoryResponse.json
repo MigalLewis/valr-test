@@ -1,0 +1,32 @@
+[
+  {
+    "price": "215413",
+    "quantity": "0.0251",
+    "currencyPair": "BTCZAR",
+    "tradedAt": "2020-08-07T06:58:01.779577Z",
+    "takerSide": "buy",
+    "sequenceId": 489055,
+    "id": "d82cad6d-94c4-4863-96a4-d4eb4afdd7fe",
+    "quoteVolume": "5406.8663"
+  },
+  {
+    "price": "215413",
+    "quantity": "0.00254239",
+    "currencyPair": "BTCZAR",
+    "tradedAt": "2020-08-07T06:58:00.197377Z",
+    "takerSide": "buy",
+    "sequenceId": 489054,
+    "id": "8c799b4c-fb55-4a0b-b434-cb5d9c4e6f81",
+    "quoteVolume": "547.66385707"
+  },
+  {
+    "price": "215413",
+    "quantity": "0.04312925",
+    "currencyPair": "BTCZAR",
+    "tradedAt": "2020-08-07T06:57:43.537708Z",
+    "takerSide": "buy",
+    "sequenceId": 489053,
+    "id": "7bd6b7d0-8857-4214-9122-a9257eb32754",
+    "quoteVolume": "9290.60113025"
+  }
+]
