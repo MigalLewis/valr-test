@@ -20,7 +20,7 @@ public class MarketDataController {
         return this.marketDataService.getOrderBook(currencyPair);
     }
     @GetMapping("{currencyPair}/tradeHistory")
-    public @ResponseBody List<Trade> getAllTrades(@PathVariable String currencyPair) {
+    public @ResponseBody List<Trade> getAllTrades(@PathVariable String currencyPair) throws NotFound, BadRequest {
         return this.marketDataService.getAllTrades(currencyPair);
     }
 }
