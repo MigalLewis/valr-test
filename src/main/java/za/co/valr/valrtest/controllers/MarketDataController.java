@@ -11,6 +11,7 @@ import za.co.valr.valrtest.service.MarketDataService;
 import java.util.List;
 
 @RestController
+@RequestMapping("marketdata")
 public class MarketDataController {
     @Autowired
     private MarketDataService marketDataService;
