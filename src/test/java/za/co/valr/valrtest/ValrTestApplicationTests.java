@@ -56,6 +56,8 @@ class ValrTestApplicationTests {
 		assertTrue(context.containsBean("tradeRepository"));
 		assertTrue(context.containsBean("limitOrderRepository"));
 		assertTrue(context.containsBean("tradeMapper"));
+		assertTrue(context.containsBean("exchangeService"));
+		assertTrue(context.containsBean("limitOrderMapper"));
 	}
 
 	@Test

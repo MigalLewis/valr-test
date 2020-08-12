@@ -24,5 +24,5 @@ public class LimitOrderEntity {
     @Column
     private boolean postOnly;
     @Column
-    private long customerOrderId;
+    private String customerOrderId;
 }
