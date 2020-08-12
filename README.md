@@ -11,6 +11,13 @@ by default the application runs on port http://localhost:8080
 ### Swagger
 you can find the swagger working documentation at http://localhost:8080/swagger-ui.html
 
+### H2
+you can access h2 database http://localhost:8080/h2-console
+
+url = jdbc:h2:mem:testdb
+username = sa
+password =
+
 ### Health Check
 you can see if the service is up and running by calling http://localhost:8080/actuator/health
 

@@ -15,7 +15,7 @@ import java.util.List;
 
 
 @Service("valrService")
-public class ValrServiceImpl implements ValrService {
+public class MarketDataServiceImpl implements MarketDataService {
     private OrderBookRepository orderBookRepository;
     private OrderBookMapper orderBookMapper;
     private TradeRepository tradeRepository;

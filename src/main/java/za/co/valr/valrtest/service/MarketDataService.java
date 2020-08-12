@@ -5,7 +5,7 @@ import za.co.valr.valrtest.model.Trade;
 
 import java.util.List;
 
-public interface ValrService {
+public interface MarketDataService {
     OrderBook getOrderBook(String currencyPair);
     List<Trade> getAllTrades(String currencyPair);
 

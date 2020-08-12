@@ -20,8 +20,8 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class OrderBookEntityServiceImplTest {
-    private ValrServiceImpl orderBookService;
+class MarketDataServiceImplTest {
+    private MarketDataServiceImpl orderBookService;
     private OrderBookRepository orderBookRepository;
     private TradeRepository tradeRepository;
     private ObjectMapper objectMapper;
@@ -32,7 +32,7 @@ class OrderBookEntityServiceImplTest {
         this.objectMapper.registerModule(new JavaTimeModule());
         this.orderBookRepository = Mockito.mock(OrderBookRepository.class);
         this.tradeRepository = Mockito.mock(TradeRepository.class);
-        this.orderBookService = new ValrServiceImpl();
+        this.orderBookService = new MarketDataServiceImpl();
         this.orderBookService.setOrderBookRepository(orderBookRepository);
         this.orderBookService.setTradeRepository(tradeRepository);
         this.orderBookService.setOrderBookMapper(Mappers.getMapper(OrderBookMapper.class));

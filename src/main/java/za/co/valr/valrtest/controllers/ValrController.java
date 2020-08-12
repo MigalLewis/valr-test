@@ -7,14 +7,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import za.co.valr.valrtest.model.OrderBook;
 import za.co.valr.valrtest.model.Trade;
-import za.co.valr.valrtest.service.ValrService;
+import za.co.valr.valrtest.service.MarketDataService;
 
 import java.util.List;
 
 @RestController
 public class ValrController {
     @Autowired
-    private ValrService valrService;
+    private MarketDataService valrService;
 
     @GetMapping("{currencyPair}/orderbook")
     public @ResponseBody OrderBook getOrderBook(@PathVariable String currencyPair) {
