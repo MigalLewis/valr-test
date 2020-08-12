@@ -13,10 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
-import za.co.valr.valrtest.model.OrderBook;
-import za.co.valr.valrtest.model.OrderBookEntity;
-import za.co.valr.valrtest.model.Trade;
-import za.co.valr.valrtest.model.TradeEntity;
+import za.co.valr.valrtest.model.*;
 import za.co.valr.valrtest.repository.OrderBookRepository;
 import za.co.valr.valrtest.repository.TradeRepository;
 
@@ -24,6 +21,7 @@ import java.io.File;
 import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -100,5 +98,25 @@ class ValrTestApplicationTests {
 		ClassLoader classLoader = getClass().getClassLoader();
 		return new File(classLoader.getResource("data/"+fileName).getFile());
 	}
+
+	@Test
+	public void postOrderLimit() throws Exception {
+		LimitOrder limitOrder = new LimitOrder();
+		limitOrder.setSide("SELL");
+		limitOrder.setQuantity("0.100000");
+		limitOrder.setPrice("10000");
+		limitOrder.setCurrencyPair("BTCZAR");
+		limitOrder.setPostOnly(true);
+		limitOrder.setCustomerOrderId("1234");
+
+
+
+		this.mockMvc.perform(post("/orders/limit").
+				contentType(MediaType.APPLICATION_JSON).
+				content(objectMapper.writeValueAsString(limitOrder))).
+				andExpect(status().isOk()).
+				andExpect(content().contentType(MediaType.APPLICATION_JSON));
+	}
+
 
 }
