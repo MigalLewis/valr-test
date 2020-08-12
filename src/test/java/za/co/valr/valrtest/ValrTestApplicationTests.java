@@ -54,6 +54,7 @@ class ValrTestApplicationTests {
 		assertTrue(context.containsBean("valrService"));
 		assertTrue(context.containsBean("orderBookMapper"));
 		assertTrue(context.containsBean("tradeRepository"));
+		assertTrue(context.containsBean("limitOrderRepository"));
 		assertTrue(context.containsBean("tradeMapper"));
 	}
 
