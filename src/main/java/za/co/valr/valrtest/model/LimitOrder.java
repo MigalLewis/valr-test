@@ -9,5 +9,5 @@ public class LimitOrder {
     private String price;
     private String currencyPair;
     private boolean postOnly;
-    private long customerOrderId;
+    private String customerOrderId;
 }
