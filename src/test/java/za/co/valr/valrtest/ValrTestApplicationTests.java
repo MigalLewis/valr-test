@@ -103,6 +103,18 @@ class ValrTestApplicationTests {
 				andExpect(status().isOk()).
 				andExpect(content().contentType(MediaType.APPLICATION_JSON));
 	}
+	@Test
+	public void getAllTrades_notFound() throws Exception {
+		TypeReference<List<TradeEntity>> typeRef
+				= new TypeReference<List<TradeEntity>>() {};
+		List<TradeEntity> tradeEntities = objectMapper.readValue(getFile("TradeHistory.json"), typeRef);
+
+		tradeRepository.saveAll(tradeEntities);
+
+
+		this.mockMvc.perform(get("/ETHZAR/orderbook")).
+				andExpect(status().isNotFound());
+	}
 
 	File getFile(String fileName) {
 		ClassLoader classLoader = getClass().getClassLoader();

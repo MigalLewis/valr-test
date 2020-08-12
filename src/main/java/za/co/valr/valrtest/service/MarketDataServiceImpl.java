@@ -36,8 +36,14 @@ public class MarketDataServiceImpl implements MarketDataService {
     }
 
     @Override
-    public List<Trade> getAllTrades(String currencyPair) {
+    public List<Trade> getAllTrades(String currencyPair) throws BadRequest, NotFound {
+        if(currencyPair==null || currencyPair.isEmpty()) {
+            throw new BadRequest("Currency Pair should not be null or empty");
+        }
         List<TradeEntity> tradeEntities = tradeRepository.findByCurrencyPair(currencyPair);
+        if(tradeEntities.isEmpty()) {
+            throw new NotFound("Order book not found");
+        }
         return tradeMapper.map(tradeEntities);
     }
 
