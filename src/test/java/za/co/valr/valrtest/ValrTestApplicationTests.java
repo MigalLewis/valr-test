@@ -75,7 +75,7 @@ class ValrTestApplicationTests {
 		OrderBook expResult = objectMapper.readValue(getFile("OrderBookResponse.json"), OrderBook.class);
 
 
-		this.mockMvc.perform(get("/BTCZAR/orderbook")).
+		this.mockMvc.perform(get("/marketdata/BTCZAR/orderbook")).
 				andExpect(status().isOk()).
 				andExpect(content().string(objectMapper.writeValueAsString(expResult)));
 	}
@@ -86,7 +86,7 @@ class ValrTestApplicationTests {
 		orderBookRepository.save(orderBookEntity);
 
 
-		this.mockMvc.perform(get("/ETHZAR/orderbook")).
+		this.mockMvc.perform(get("/marketdata/ETHZAR/orderbook")).
 				andExpect(status().isNotFound());
 	}
 
@@ -99,7 +99,7 @@ class ValrTestApplicationTests {
 		tradeRepository.saveAll(tradeEntities);
 
 
-		this.mockMvc.perform(get("/BTCZAR/tradeHistory")).
+		this.mockMvc.perform(get("/marketdata/BTCZAR/tradeHistory")).
 				andExpect(status().isOk()).
 				andExpect(content().contentType(MediaType.APPLICATION_JSON));
 	}
@@ -112,7 +112,7 @@ class ValrTestApplicationTests {
 		tradeRepository.saveAll(tradeEntities);
 
 
-		this.mockMvc.perform(get("/ETHZAR/orderbook")).
+		this.mockMvc.perform(get("/marketdata/ETHZAR/orderbook")).
 				andExpect(status().isNotFound());
 	}
 
